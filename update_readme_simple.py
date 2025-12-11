@@ -55,6 +55,7 @@ def get_cpp_files(code_dir):
 def generate_readme_content(cpp_files, repo_owner='SuwonJ', repo_name='cppBOJ', branch='main'):
     """
     Generate the content for README.md based on the cpp files found.
+    Note: The '##' line is kept for compatibility with the existing README format.
     """
     lines = [
         "# [NOJ.AM](https://noj.am)",

@@ -19,12 +19,17 @@ def get_problem_title(problem_number):
     """
     Fetch the problem title from acmicpc.net.
     Returns the title if found, otherwise returns a placeholder.
+    
+    Note: Uses simple regex for title extraction. While a proper HTML parser
+    like BeautifulSoup would be more robust, this keeps dependencies minimal
+    and works for the current acmicpc.net page structure.
     """
     try:
         url = f"https://www.acmicpc.net/problem/{problem_number}"
         response = requests.get(url, timeout=5)
         if response.status_code == 200:
-            # Extract title from the HTML page
+            # Extract title from the HTML page using regex
+            # Format: <title>1234번: 문제제목</title>
             title_match = re.search(r'<title>(\d+)번: (.+?)</title>', response.text)
             if title_match:
                 return title_match.group(2).strip()
@@ -58,6 +63,7 @@ def get_cpp_files(code_dir):
 def generate_readme_content(cpp_files, repo_owner='SuwonJ', repo_name='cppBOJ', branch='main'):
     """
     Generate the content for README.md based on the cpp files found.
+    Note: The '##' line is kept for compatibility with the existing README format.
     """
     lines = [
         "# [NOJ.AM](https://noj.am)",
